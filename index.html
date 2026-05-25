@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vyzen Media LLC — Digital Marketing That Delivers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0f;
+    --paper: #f5f2ec;
+    --neon: #c8f53a;
+    --neon-dim: rgba(200,245,58,0.12);
+    --accent: #ff3e3e;
+    --muted: #6b6b7a;
+    --border: rgba(255,255,255,0.08);
+    --glass: rgba(255,255,255,0.04);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--ink);
+    color: var(--paper);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
+  }
+  .cursor-dot {
+    width: 8px; height: 8px; background: var(--neon);
+    border-radius: 50%; position: absolute;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(200,245,58,0.5);
+    border-radius: 50%; position: absolute;
+    transform: translate(-50%, -50%);
+    transition: all 0.15s ease;
+  }
+  body:has(a:hover) .cursor-ring,
+  body:has(button:hover) .cursor-ring { transform: translate(-50%,-50%) scale(1.6); border-color: var(--neon); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 4rem;
+    background: rgba(10,10,15,0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem; letter-spacing: 0.05em;
+    color: var(--paper);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--neon); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--neon); }
+  .nav-cta {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem; padding: 0.6rem 1.4rem;
+    background: var(--neon); color: var(--ink);
+    border: none; text-decoration: none;
+    font-weight: 700; letter-spacing: 0.05em;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,245,58,0.35); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; pointer-events: none;
+  }
+  .hero-bg-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(200,245,58,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,245,58,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+  }
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(200,245,58,0.08) 0%, transparent 70%);
+    right: 0; top: 50%; transform: translateY(-50%);
+    animation: pulse 4s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 0.5; transform: translateY(-50%) scale(1); } 50% { opacity: 1; transform: translateY(-50%) scale(1.05); } }
+
+  .hero-left { position: relative; z-index: 2; }
+  .hero-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; color: var(--neon);
+    letter-spacing: 0.2em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .hero-tag::before { content: ''; width: 24px; height: 1px; background: var(--neon); }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 7vw, 7rem);
+    line-height: 0.95; letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .hero-title em { color: var(--neon); font-style: normal; }
+  .hero-title .outline {
+    -webkit-text-stroke: 1px rgba(245,242,236,0.3);
+    color: transparent;
+  }
+
+  .hero-desc {
+    font-size: 1.05rem; color: var(--muted);
+    line-height: 1.7; max-width: 420px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-actions { display: flex; align-items: center; gap: 1.5rem; }
+  .btn-primary {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 1rem 2.2rem;
+    background: var(--neon); color: var(--ink);
+    border: none; text-decoration: none; display: inline-block;
+    transition: all 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .btn-primary::after {
+    content: '→'; position: absolute; right: -20px; top: 50%; transform: translateY(-50%);
+    transition: all 0.25s;
+  }
+  .btn-primary:hover { padding-right: 3rem; }
+  .btn-primary:hover::after { right: 0.9rem; }
+
+  .btn-ghost {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--paper); text-decoration: none;
+    display: flex; align-items: center; gap: 0.5rem;
+    opacity: 0.6; transition: opacity 0.2s;
+  }
+  .btn-ghost:hover { opacity: 1; }
+
+  .hero-right {
+    position: relative; z-index: 2;
+    display: flex; justify-content: center; align-items: center;
+  }
+  .hero-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--border); border: 1px solid var(--border);
+    width: 100%; max-width: 400px;
+  }
+  .stat-card {
+    background: var(--glass);
+    padding: 2rem 1.8rem;
+    backdrop-filter: blur(10px);
+    transition: background 0.3s;
+  }
+  .stat-card:hover { background: rgba(200,245,58,0.06); }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem; color: var(--neon);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.78rem; color: var(--muted);
+    letter-spacing: 0.05em; text-transform: uppercase;
+    margin-top: 0.4rem;
+  }
+
+  /* TICKER */
+  .ticker {
+    background: var(--neon); color: var(--ink);
+    padding: 0.8rem 0; overflow: hidden;
+    position: relative;
+  }
+  .ticker-track {
+    display: flex; gap: 3rem;
+    animation: ticker 20s linear infinite;
+    width: max-content;
+  }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .ticker-item {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    white-space: nowrap; display: flex; align-items: center; gap: 1rem;
+  }
+  .ticker-item::after { content: '✦'; }
+
+  /* SERVICES */
+  .services {
+    padding: 8rem 4rem;
+    position: relative;
+  }
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; color: var(--neon);
+    letter-spacing: 0.2em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 0.8rem;
+    margin-bottom: 1rem;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); max-width: 60px; }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    line-height: 1; margin-bottom: 0.5rem;
+  }
+  .section-sub {
+    color: var(--muted); font-size: 1rem;
+    font-weight: 300; max-width: 500px;
+    line-height: 1.6; margin-bottom: 4rem;
+  }
+
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .service-card {
+    background: #0d0d12;
+    padding: 3rem 2.5rem;
+    position: relative; overflow: hidden;
+    transition: background 0.3s;
+    group: true;
+  }
+  .service-card::before {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; right: 0; height: 2px;
+    background: var(--neon); transform: scaleX(0);
+    transform-origin: left; transition: transform 0.4s ease;
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { background: rgba(200,245,58,0.03); }
+
+  .service-icon {
+    font-size: 2rem; margin-bottom: 1.5rem;
+    display: block;
+  }
+  .service-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; color: var(--neon);
+    letter-spacing: 0.15em; margin-bottom: 1rem; opacity: 0.6;
+  }
+  .service-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem; letter-spacing: 0.03em;
+    margin-bottom: 1rem;
+  }
+  .service-desc {
+    font-size: 0.9rem; color: var(--muted);
+    line-height: 1.7; font-weight: 300;
+  }
+  .service-arrow {
+    display: inline-block; margin-top: 1.5rem;
+    font-family: 'Space Mono', monospace; font-size: 0.75rem;
+    color: var(--neon); letter-spacing: 0.1em;
+    opacity: 0; transform: translateX(-10px);
+    transition: all 0.3s;
+  }
+  .service-card:hover .service-arrow { opacity: 1; transform: translateX(0); }
+
+  /* WHY US */
+  .why {
+    padding: 8rem 4rem;
+    background: #0d0d12;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 6rem; align-items: center;
+  }
+  .why-visual {
+    position: relative; display: flex; align-items: center; justify-content: center;
+  }
+  .why-chart {
+    width: 300px; height: 300px;
+    position: relative;
+  }
+  .chart-ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid var(--border);
+    animation: spin 20s linear infinite;
+  }
+  .chart-ring:nth-child(1) { inset: 0; }
+  .chart-ring:nth-child(2) { inset: 30px; animation-direction: reverse; animation-duration: 15s; }
+  .chart-ring:nth-child(3) { inset: 60px; animation-duration: 25s; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .chart-dot {
+    position: absolute; border-radius: 50%;
+    background: var(--neon);
+  }
+  .chart-ring:nth-child(1) .chart-dot { width: 8px; height: 8px; top: -4px; left: 50%; transform: translateX(-50%); }
+  .chart-ring:nth-child(2) .chart-dot { width: 6px; height: 6px; top: -3px; left: 50%; transform: translateX(-50%); }
+  .chart-ring:nth-child(3) .chart-dot { width: 5px; height: 5px; top: -2.5px; left: 50%; transform: translateX(-50%); }
+  .chart-center {
+    position: absolute; inset: 90px;
+    background: var(--neon-dim);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+  }
+  .chart-center-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem; color: var(--neon);
+  }
+  .chart-center-label {
+    font-size: 0.65rem; color: var(--muted);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    text-align: center;
+  }
+
+  .why-points { display: flex; flex-direction: column; gap: 2rem; }
+  .why-point {
+    display: flex; gap: 1.5rem; align-items: flex-start;
+    padding: 1.5rem; border: 1px solid var(--border);
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .why-point:hover { border-color: rgba(200,245,58,0.3); background: var(--neon-dim); }
+  .why-point-icon {
+    font-size: 1.5rem; flex-shrink: 0;
+    width: 48px; height: 48px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--neon-dim); border: 1px solid rgba(200,245,58,0.2);
+  }
+  .why-point-title {
+    font-weight: 500; margin-bottom: 0.3rem;
+    font-size: 0.95rem;
+  }
+  .why-point-desc {
+    font-size: 0.85rem; color: var(--muted); line-height: 1.6; font-weight: 300;
+  }
+
+  /* PROCESS */
+  .process {
+    padding: 8rem 4rem;
+  }
+  .process-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; margin-top: 4rem;
+    position: relative;
+  }
+  .process-steps::before {
+    content: ''; position: absolute;
+    top: 2.5rem; left: 12.5%; right: 12.5%;
+    height: 1px; background: linear-gradient(90deg, transparent, var(--neon), transparent);
+  }
+  .process-step {
+    padding: 0 2rem; text-align: center; position: relative;
+  }
+  .step-circle {
+    width: 48px; height: 48px;
+    border: 1px solid var(--neon);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem; color: var(--neon);
+    background: var(--ink);
+    position: relative; z-index: 1;
+  }
+  .step-title {
+    font-weight: 500; font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
+  .step-desc {
+    font-size: 0.82rem; color: var(--muted);
+    line-height: 1.6; font-weight: 300;
+  }
+
+  /* CTA BANNER */
+  .cta-banner {
+    margin: 0 4rem 8rem;
+    background: var(--neon);
+    padding: 5rem 4rem;
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 2rem;
+  }
+  .cta-banner::before {
+    content: 'GROW';
+    position: absolute; right: -2rem; top: 50%; transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif; font-size: 12rem;
+    color: rgba(10,10,15,0.07); line-height: 1; pointer-events: none;
+    white-space: nowrap;
+  }
+  .cta-banner-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    color: var(--ink); line-height: 1;
+  }
+  .cta-banner-sub {
+    color: rgba(10,10,15,0.6); font-size: 1rem;
+    font-weight: 300; margin-top: 0.5rem;
+  }
+  .btn-dark {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 1rem 2.2rem;
+    background: var(--ink); color: var(--neon);
+    border: none; text-decoration: none; display: inline-block;
+    white-space: nowrap; flex-shrink: 0;
+    transition: all 0.25s;
+  }
+  .btn-dark:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 3rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem; color: var(--paper);
+  }
+  .footer-logo span { color: var(--neon); }
+  .footer-mail {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem; color: var(--muted);
+    letter-spacing: 0.05em;
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-mail:hover { color: var(--neon); }
+  .footer-copy {
+    font-size: 0.78rem; color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0; transform: translateY(30px);
+    animation: fadeUp 0.7s ease forwards;
+  }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.35s; }
+  .delay-4 { animation-delay: 0.5s; }
+  .delay-5 { animation-delay: 0.65s; }
+
+  /* SCROLL REVEAL */
+  [data-reveal] { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  [data-reveal].revealed { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 2rem 4rem; gap: 3rem; }
+    .hero-right { justify-content: flex-start; }
+    .hero-stats { max-width: 100%; }
+    .services { padding: 5rem 2rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .why { grid-template-columns: 1fr; padding: 5rem 2rem; gap: 3rem; }
+    .why-visual { display: none; }
+    .process { padding: 5rem 2rem; }
+    .process-steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .process-steps::before { display: none; }
+    .cta-banner { margin: 0 2rem 5rem; flex-direction: column; padding: 3rem 2rem; }
+    footer { padding: 2rem; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor">
+  <div class="cursor-ring"></div>
+  <div class="cursor-dot"></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Vyzen<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get a Quote</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-glow"></div>
+  </div>
+
+  <div class="hero-left">
+    <div class="hero-tag fade-up">Digital Marketing Agency</div>
+    <h1 class="hero-title fade-up delay-1">
+      We make<br>brands<br><em>dominate</em><br><span class="outline">online.</span>
+    </h1>
+    <p class="hero-desc fade-up delay-2">
+      Vyzen Media LLC turns clicks into clients and followers into fanatics. Data-driven strategies, creative execution, and results you can actually measure.
+    </p>
+    <div class="hero-actions fade-up delay-3">
+      <a href="#contact" class="btn-primary">Start Growing</a>
+      <a href="#services" class="btn-ghost">↓ See Services</a>
+    </div>
+  </div>
+
+  <div class="hero-right fade-up delay-4">
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">3×</div>
+        <div class="stat-label">Avg. ROI Increase</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Client Retention</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Brands Scaled</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">24h</div>
+        <div class="stat-label">Response Time</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ticker-item">SEO Optimization</div>
+    <div class="ticker-item">Paid Advertising</div>
+    <div class="ticker-item">Social Media Management</div>
+    <div class="ticker-item">Content Strategy</div>
+    <div class="ticker-item">Email Marketing</div>
+    <div class="ticker-item">Brand Identity</div>
+    <div class="ticker-item">Web Analytics</div>
+    <div class="ticker-item">Conversion Rate Optimization</div>
+    <div class="ticker-item">SEO Optimization</div>
+    <div class="ticker-item">Paid Advertising</div>
+    <div class="ticker-item">Social Media Management</div>
+    <div class="ticker-item">Content Strategy</div>
+    <div class="ticker-item">Email Marketing</div>
+    <div class="ticker-item">Brand Identity</div>
+    <div class="ticker-item">Web Analytics</div>
+    <div class="ticker-item">Conversion Rate Optimization</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-label" data-reveal>Our Services</div>
+  <h2 class="section-title" data-reveal>Everything you need<br>to win online.</h2>
+  <p class="section-sub" data-reveal>From visibility to virality — we handle every layer of your digital presence so you can focus on running your business.</p>
+
+  <div class="services-grid">
+    <div class="service-card" data-reveal>
+      <span class="service-icon">🎯</span>
+      <div class="service-num">01</div>
+      <div class="service-name">Search Engine Optimization</div>
+      <div class="service-desc">Rank at the top of Google for keywords that matter. Technical audits, on-page optimization, and backlink strategies that stick.</div>
+      <div class="service-arrow">Learn more →</div>
+    </div>
+    <div class="service-card" data-reveal>
+      <span class="service-icon">⚡</span>
+      <div class="service-num">02</div>
+      <div class="service-name">Paid Ads (PPC)</div>
+      <div class="service-desc">Google Ads, Meta Ads, and LinkedIn campaigns engineered for maximum ROI. Every dollar tracked, every campaign optimized.</div>
+      <div class="service-arrow">Learn more →</div>
+    </div>
+    <div class="service-card" data-reveal>
+      <span class="service-icon">📱</span>
+      <div class="service-num">03</div>
+      <div class="service-name">Social Media Marketing</div>
+      <div class="service-desc">Build a loyal audience and stay top-of-mind across Instagram, TikTok, LinkedIn, and beyond with content that converts.</div>
+      <div class="service-arrow">Learn more →</div>
+    </div>
+    <div class="service-card" data-reveal>
+      <span class="service-icon">✍️</span>
+      <div class="service-num">04</div>
+      <div class="service-name">Content Marketing</div>
+      <div class="service-desc">Blogs, videos, email sequences, and landing pages crafted to attract, educate, and convert your ideal customer.</div>
+      <div class="service-arrow">Learn more →</div>
+    </div>
+    <div class="service-card" data-reveal>
+      <span class="service-icon">📊</span>
+      <div class="service-num">05</div>
+      <div class="service-name">Analytics & Reporting</div>
+      <div class="service-desc">Real-time dashboards and monthly deep-dives that turn data into decisions. Know exactly what's working and why.</div>
+      <div class="service-arrow">Learn more →</div>
+    </div>
+    <div class="service-card" data-reveal>
+      <span class="service-icon">🚀</span>
+      <div class="service-num">06</div>
+      <div class="service-name">Brand Strategy</div>
+      <div class="service-desc">Positioning, messaging, and identity work that makes your brand unforgettable in a crowded market.</div>
+      <div class="service-arrow">Learn more →</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why" id="why">
+  <div class="why-visual">
+    <div class="why-chart">
+      <div class="chart-ring"><div class="chart-dot"></div></div>
+      <div class="chart-ring"><div class="chart-dot"></div></div>
+      <div class="chart-ring"><div class="chart-dot"></div></div>
+      <div class="chart-center">
+        <div class="chart-center-num">3×</div>
+        <div class="chart-center-label">Growth<br>Multiplier</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="section-label" data-reveal>Why Vyzen</div>
+    <h2 class="section-title" data-reveal>Results over<br>reports.</h2>
+    <p class="section-sub" data-reveal>We're not here to send you pretty slides. We're here to grow your revenue.</p>
+
+    <div class="why-points">
+      <div class="why-point" data-reveal>
+        <div class="why-point-icon">📌</div>
+        <div>
+          <div class="why-point-title">Strategy-First Approach</div>
+          <div class="why-point-desc">We build a custom growth plan before spending a single dollar. No templates. No guesswork.</div>
+        </div>
+      </div>
+      <div class="why-point" data-reveal>
+        <div class="why-point-icon">🔍</div>
+        <div>
+          <div class="why-point-title">Transparent Reporting</div>
+          <div class="why-point-desc">Live dashboards and monthly calls mean you always know where your money is going and what it's doing.</div>
+        </div>
+      </div>
+      <div class="why-point" data-reveal>
+        <div class="why-point-icon">⚙️</div>
+        <div>
+          <div class="why-point-title">Agile Execution</div>
+          <div class="why-point-desc">Markets change fast. Our team pivots within 24 hours — not at the next quarterly review.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="section-label" data-reveal>How it Works</div>
+  <h2 class="section-title" data-reveal>Simple process.<br>Serious results.</h2>
+
+  <div class="process-steps">
+    <div class="process-step" data-reveal>
+      <div class="step-circle">01</div>
+      <div class="step-title">Discovery Call</div>
+      <div class="step-desc">We learn your business, goals, audience, and current marketing gaps.</div>
+    </div>
+    <div class="process-step" data-reveal>
+      <div class="step-circle">02</div>
+      <div class="step-title">Strategy Build</div>
+      <div class="step-desc">We craft a custom roadmap with channels, budgets, timelines, and KPIs.</div>
+    </div>
+    <div class="process-step" data-reveal>
+      <div class="step-circle">03</div>
+      <div class="step-title">Launch & Execute</div>
+      <div class="step-desc">Campaigns go live. We monitor daily and optimize in real time.</div>
+    </div>
+    <div class="process-step" data-reveal>
+      <div class="step-circle">04</div>
+      <div class="step-title">Scale & Report</div>
+      <div class="step-desc">What works gets scaled. You get clear reports and visible growth.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner" id="contact" data-reveal>
+  <div>
+    <div class="cta-banner-title">Ready to grow?<br>Let's talk.</div>
+    <div class="cta-banner-sub">No commitments. Just a real conversation about your goals.</div>
+  </div>
+  <a href="mailto:vyzendigital@gmail.com" class="btn-dark">Email Us Now →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Vyzen<span>.</span> Media LLC</div>
+  <a href="mailto:vyzendigital@gmail.com" class="footer-mail">vyzendigital@gmail.com</a>
+  <div class="footer-copy">© 2025 Vyzen Media LLC. All rights reserved.</div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const dot = cursor.querySelector('.cursor-dot');
+  const ring = cursor.querySelector('.cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; });
+  function animRing() { rx += (mx - rx) * 0.15; ry += (my - ry) * 0.15; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animRing); }
+  animRing();
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); obs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
