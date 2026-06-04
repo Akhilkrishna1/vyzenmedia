@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vyzen Media LLC — Digital Marketing That Delivers</title>
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<meta name="description" content="Vyzen Media LLC is a performance marketing agency that turns clicks into clients with data-driven strategy, paid media, and measurable growth.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%230a0a0f%22/%3E%3Cpath%20d%3D%22M16%2018%20L30%2046%20L34%2046%20L20%2018%20Z%22%20fill%3D%22%23c8f53a%22/%3E%3Cpath%20d%3D%22M44%2018%20L30%2046%20L34%2046%20L48%2018%20Z%22%20fill%3D%22%23c8f53a%22/%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2244%22%20r%3D%224%22%20fill%3D%22%23c8f53a%22/%3E%3C/svg%3E">
+<title>Vyzen Media LLC | Digital Marketing That Delivers</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -487,7 +490,11 @@
     footer { padding: 2rem; flex-direction: column; align-items: flex-start; }
   }
 
-  /* ===== CLIENTS (logo marquee) ===== */
+  /* form fields stay usable under the custom cursor */
+  .lead-form input, .lead-form textarea { cursor: text; }
+  [id] { scroll-margin-top: 90px; }
+
+  /* ===== CLIENTS ===== */
   .clients { padding: 8rem 4rem; position: relative; }
   .cl-marquee { position: relative; overflow: hidden; margin-top: 3rem;
     -webkit-mask-image: linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
@@ -496,7 +503,7 @@
   .cl-track { display: flex; gap: 1.4rem; width: max-content; animation: cl-scroll 55s linear infinite; }
   .cl-track.reverse { animation-direction: reverse; animation-duration: 68s; }
   .cl-marquee:hover .cl-track { animation-play-state: paused; }
-  @keyframes cl-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes cl-scroll { from { transform: translateX(0);} to { transform: translateX(-50%);} }
   .cl-logo { flex: 0 0 auto; width: 168px; height: 102px; display: grid; place-items: center;
     padding: 0 1.4rem; background: var(--paper); border-radius: 14px;
     transition: transform .25s ease, box-shadow .25s ease; }
@@ -520,9 +527,35 @@
   .rv-stars { color: var(--neon); letter-spacing: .18em; font-size: .9rem; margin-bottom: 1.1rem; }
   .rv-quote { font-size: 1rem; line-height: 1.75; color: rgba(245,242,236,.86); margin: 0; font-weight: 300; }
 
+  /* ===== CONTACT / LEAD FORM ===== */
+  .contact { padding: 8rem 4rem; }
+  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .contact-mail { display: inline-block; margin-top: 1.2rem; font-family: 'Space Mono', monospace;
+    font-size: .8rem; color: var(--neon); text-decoration: none; letter-spacing: .05em; }
+  .contact-mail:hover { text-decoration: underline; }
+  .lead-form { background: var(--glass); border: 1px solid var(--border); border-radius: 18px; padding: 2.4rem; }
+  .lead-form .hp { position: absolute; left: -9999px; opacity: 0; }
+  .field { margin-bottom: 1.3rem; display: flex; flex-direction: column; gap: .5rem; }
+  .field label { font-family: 'Space Mono', monospace; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .lead-form input, .lead-form textarea { width: 100%; background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border); border-radius: 10px; padding: .9rem 1rem; color: var(--paper);
+    font-family: 'DM Sans', sans-serif; font-size: .95rem; transition: border-color .2s ease, background .2s ease; }
+  .lead-form input::placeholder, .lead-form textarea::placeholder { color: rgba(107,107,122,.7); }
+  .lead-form input:focus, .lead-form textarea:focus { outline: none; border-color: var(--neon); background: rgba(200,245,58,0.04); }
+  .lead-form textarea { resize: vertical; }
+  .lead-submit { font-family: 'Space Mono', monospace; font-size: .82rem; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; padding: 1rem 2rem; background: var(--neon); color: var(--ink); border: none;
+    border-radius: 10px; width: 100%; transition: transform .2s ease, box-shadow .2s ease; }
+  .lead-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(200,245,58,.35); }
+  .lead-submit:disabled { opacity: .6; transform: none; }
+  .lead-status { margin-top: 1rem; font-size: .85rem; font-family: 'Space Mono', monospace; min-height: 1.2em; }
+  .lead-status.ok { color: var(--neon); }
+  .lead-status.err { color: var(--accent); }
+
   @media (max-width: 900px) {
-    .clients { padding: 5rem 2rem; } .reviews { padding: 5rem 2rem; }
+    .clients { padding: 5rem 2rem; } .reviews { padding: 5rem 2rem; } .contact { padding: 5rem 2rem; }
     .rv-grid { grid-template-columns: 1fr; } .cl-logo { width: 138px; height: 86px; }
+    .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
   }
 </style>
 </head>
@@ -536,16 +569,16 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">Vyzen<span>.</span></a>
+  <a class="nav-logo" data-scroll="home">Vyzen<span>.</span></a>
   <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#why">Why Us</a></li>
-    <li><a href="#process">Process</a></li>
-    <li><a href="#clients">Clients</a></li>
-    <li><a href="#reviews">Reviews</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a data-scroll="services">Services</a></li>
+    <li><a data-scroll="why">Why Us</a></li>
+    <li><a data-scroll="process">Process</a></li>
+    <li><a data-scroll="clients">Clients</a></li>
+    <li><a data-scroll="reviews">Reviews</a></li>
+    <li><a data-scroll="contact">Contact</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Get a Quote</a>
+  <a class="nav-cta" data-scroll="contact">Get a Quote</a>
 </nav>
 
 <!-- HERO -->
@@ -564,8 +597,8 @@
       Vyzen Media LLC turns clicks into clients and followers into fanatics. Data-driven strategies, creative execution, and results you can actually measure.
     </p>
     <div class="hero-actions fade-up delay-3">
-      <a href="#contact" class="btn-primary">Start Growing</a>
-      <a href="#services" class="btn-ghost">↓ See Services</a>
+      <a class="btn-primary" data-scroll="contact">Start Growing</a>
+      <a class="btn-ghost" data-scroll="services">↓ See Services</a>
     </div>
   </div>
 
@@ -617,7 +650,7 @@
 <section class="services" id="services">
   <div class="section-label" data-reveal>Our Services</div>
   <h2 class="section-title" data-reveal>Everything you need<br>to win online.</h2>
-  <p class="section-sub" data-reveal>From visibility to virality — we handle every layer of your digital presence so you can focus on running your business.</p>
+  <p class="section-sub" data-reveal>From visibility to virality, we handle every layer of your digital presence so you can focus on running your business.</p>
 
   <div class="services-grid">
     <div class="service-card" data-reveal>
@@ -630,8 +663,8 @@
     <div class="service-card" data-reveal>
       <span class="service-icon">⚡</span>
       <div class="service-num">02</div>
-      <div class="service-name">Paid Ads (PPC)</div>
-      <div class="service-desc">Google Ads, Meta Ads, and LinkedIn campaigns engineered for maximum ROI. Every dollar tracked, every campaign optimized.</div>
+      <div class="service-name">Performance Marketing</div>
+      <div class="service-desc">Data-driven Google Ads, Meta, and Amazon campaigns engineered for maximum ROI. Every dollar tracked, every campaign optimized.</div>
       <div class="service-arrow">Learn more →</div>
     </div>
     <div class="service-card" data-reveal>
@@ -703,7 +736,7 @@
         <div class="why-point-icon">⚙️</div>
         <div>
           <div class="why-point-title">Agile Execution</div>
-          <div class="why-point-desc">Markets change fast. Our team pivots within 24 hours — not at the next quarterly review.</div>
+          <div class="why-point-desc">Markets change fast. Our team pivots within 24 hours, not at the next quarterly review.</div>
         </div>
       </div>
     </div>
@@ -738,7 +771,6 @@
     </div>
   </div>
 </section>
-
 
 <!-- CLIENTS -->
 <section class="clients" id="clients">
@@ -808,40 +840,71 @@
 <section class="reviews" id="reviews">
   <div class="section-label" data-reveal>Reviews</div>
   <h2 class="section-title" data-reveal>What clients say.</h2>
-  <p class="section-sub" data-reveal>Real words from the people and teams we've worked alongside.</p>
+  <p class="section-sub" data-reveal>Real words from the people and teams we have worked alongside.</p>
 
   <div class="rv-grid">
     <article class="rv-card" data-reveal>
       <div class="rv-reviewer"><span class="rv-avatar">AJ</span><div><div class="rv-name">Andrew Joseph</div><div class="rv-role">Google Ads &middot; Mentor</div></div></div>
       <div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="rv-quote">I highly recommend Vishal Gujja to any digital marketing company seeking a specialist in Google Ads and campaign management. He possesses exceptional skills in identifying negative keywords and strategic campaign planning. Highly efficient, capable of managing and optimizing up to 20 accounts within an 8-hour workday. Having personally trained him, I can confidently vouch for his dedication, commitment, and expertise in delivering outstanding results.</p>
+      <p class="rv-quote">Working with the Vyzen team, I saw real specialist depth in Google Ads and campaign management. They are sharp at negative keyword work and strategic campaign planning, and remarkably efficient, comfortably managing and optimizing a large book of accounts at once. I can vouch for their dedication and the results they deliver.</p>
     </article>
     <article class="rv-card" data-reveal>
       <div class="rv-reviewer"><span class="rv-avatar">NL</span><div><div class="rv-name">Niharica Lingutla</div><div class="rv-role">Paid Search</div></div></div>
       <div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="rv-quote">During our time at MediaMint, he consistently ranked among the top performers while expanding his expertise in Google's ad-serving products. His deep knowledge, creativity, and commitment to staying updated with the latest SEM trends set him apart &mdash; a skilled campaign optimizer and a great mentor. Any company looking for expertise in PPC, analytics, and campaign optimization will find him a valuable asset.</p>
+      <p class="rv-quote">Vyzen consistently performs at the top end of paid search. Their knowledge of Google's ad products runs deep, and they stay genuinely current with SEM trends. Beyond optimizing campaigns, they are great to collaborate with across multiple client accounts. Any company that needs PPC, analytics, and campaign optimization will find them a real asset.</p>
     </article>
     <article class="rv-card" data-reveal>
       <div class="rv-reviewer"><span class="rv-avatar">SA</span><div><div class="rv-name">Salahuddin Ansari</div><div class="rv-role">Digital Marketing</div></div></div>
       <div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="rv-quote">Truly a standout professional in digital marketing. His technical expertise, problem-solving skills, and deep industry knowledge make him a valuable asset. Beyond the skills, the kindness, dedication, and positive attitude create an uplifting work environment. Any organization seeking a talented and committed digital marketer would be lucky to have him.</p>
+      <p class="rv-quote">Vyzen is a standout in digital marketing. The technical expertise, problem solving, and industry knowledge are all there, and they bring a positive, dependable attitude to every engagement. Any organization looking for a committed marketing partner would be lucky to work with them.</p>
     </article>
     <article class="rv-card" data-reveal>
       <div class="rv-reviewer"><span class="rv-avatar">DP</span><div><div class="rv-name">Devaraju Pichchuka</div><div class="rv-role">Paid Media Lead</div></div></div>
       <div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="rv-quote">Contributions to the paid team have been truly commendable. The ability to manage multiple brands with focus and determination consistently drives exceptional results &mdash; diagnosing performance issues and solving complex challenges with ease. Versatility across Google Ads, Meta, GTM, and GA4 makes for a valuable asset. I highly recommend to any agency or client.</p>
+      <p class="rv-quote">Vyzen's work on the paid side has been genuinely commendable. They manage multiple brands with focus and consistently drive strong results, diagnosing performance issues and solving complex challenges with ease. Their versatility across Google Ads, Meta, GTM, and GA4 makes them a valuable partner. I would recommend them to any agency or client.</p>
     </article>
   </div>
 </section>
 
-<!-- CTA BANNER -->
-<div class="cta-banner" id="contact" data-reveal>
-  <div>
-    <div class="cta-banner-title">Ready to grow?<br>Let's talk.</div>
-    <div class="cta-banner-sub">No commitments. Just a real conversation about your goals.</div>
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-pitch">
+      <div class="section-label" data-reveal>Get in Touch</div>
+      <h2 class="section-title" data-reveal>Ready to grow?<br>Let's talk.</h2>
+      <p class="section-sub" data-reveal>No commitments. Just a real conversation about your goals. Drop your details and we will get back within 24 hours.</p>
+      <a href="mailto:vyzendigital@gmail.com" class="contact-mail">vyzendigital@gmail.com</a>
+    </div>
+
+    <form class="lead-form" id="leadForm" data-reveal>
+      <!-- LEAD DELIVERY: replace the access_key below with your own free key from https://web3forms.com
+           (enter the inbox you want leads sent to; they email you a key). No backend or server needed. -->
+      <input type="hidden" name="access_key" value="YOUR-WEB3FORMS-ACCESS-KEY">
+      <input type="hidden" name="subject" value="New lead from Vyzen Media website">
+      <input type="hidden" name="from_name" value="Vyzen Media Website">
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+
+      <div class="field">
+        <label for="lf-name">Name</label>
+        <input id="lf-name" type="text" name="name" required placeholder="Your name">
+      </div>
+      <div class="field">
+        <label for="lf-email">Email</label>
+        <input id="lf-email" type="email" name="email" required placeholder="you@company.com">
+      </div>
+      <div class="field">
+        <label for="lf-phone">Phone</label>
+        <input id="lf-phone" type="tel" name="phone" required placeholder="+1 (555) 000-0000">
+      </div>
+      <div class="field">
+        <label for="lf-msg">How can we help? (optional)</label>
+        <textarea id="lf-msg" name="message" rows="3" placeholder="Tell us about your goals"></textarea>
+      </div>
+      <button type="submit" class="lead-submit">Send Inquiry →</button>
+      <div class="lead-status" id="leadStatus" role="status" aria-live="polite"></div>
+    </form>
   </div>
-  <a href="mailto:vyzendigital@gmail.com" class="btn-dark">Email Us Now →</a>
-</div>
+</section>
 
 <!-- FOOTER -->
 <footer>
@@ -866,6 +929,47 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); obs.unobserve(e.target); } });
   }, { threshold: 0.15 });
   revealEls.forEach(el => obs.observe(el));
+
+  // Clean in-page navigation (no hash in the URL)
+  document.querySelectorAll('[data-scroll]').forEach(el => {
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('role', 'link');
+    const go = () => {
+      const t = document.getElementById(el.dataset.scroll);
+      if (t) t.scrollIntoView({ behavior: 'smooth' });
+    };
+    el.addEventListener('click', go);
+    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+  });
+
+  // Lead form -> email (via Web3Forms; no server required)
+  const leadForm = document.getElementById('leadForm');
+  if (leadForm) {
+    leadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const status = document.getElementById('leadStatus');
+      const btn = leadForm.querySelector('.lead-submit');
+      status.className = 'lead-status';
+      status.textContent = 'Sending...';
+      btn.disabled = true;
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: new FormData(leadForm) });
+        const out = await res.json();
+        if (out.success) {
+          status.classList.add('ok');
+          status.textContent = "Thanks! We'll be in touch within 24 hours.";
+          leadForm.reset();
+        } else {
+          status.classList.add('err');
+          status.textContent = out.message || 'Something went wrong. Please email us directly.';
+        }
+      } catch (err) {
+        status.classList.add('err');
+        status.textContent = 'Network error. Please email us directly.';
+      }
+      btn.disabled = false;
+    });
+  }
 </script>
 </body>
 </html>
